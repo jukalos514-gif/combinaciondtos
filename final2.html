@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Aprendizaje Interactiva: Combinar Correspondencia SENA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        /* Colores institucionales SENA */
+        .bg-sena-orange { background-color: #ff6b00; }
+        .text-sena-orange { color: #ff6b00; }
+        .border-sena-orange { border-color: #ff6b00; }
+        
+        .focus-ring:focus {
+            outline: 3px solid #ff6b00;
+            outline-offset: 2px;
+        }
+
+        .image-container {
+            position: relative;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .word-badge {
+            background-color: #2b579a;
+            color: white;
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-2 md:p-8">
+
+    <main class="max-w-5xl w-full bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 my-4">
+        
+        <!-- HEADER INSTITUCIONAL -->
+        <header class="bg-slate-900 text-white p-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-sena-orange p-2.5 rounded-xl">
+                        <i data-lucide="graduation-cap" class="w-6 h-6 text-white" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold tracking-tight">Combinar Correspondencia Automatizada</h1>
+                        <p class="text-xs text-slate-400">Programa de Formación Profesional - Gestión Administrative SENA</p>
+                    </div>
+                </div>
+                <div class="mt-4 md:mt-0 text-right bg-slate-800 px-4 py-2 rounded-lg border border-slate-700">
+                    <span id="score-display" class="text-sm font-bold uppercase tracking-wider text-sena-orange" aria-live="polite">Puntos: 0</span>
+                </div>
+            </div>
+            
+            <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden" role="progressbar" id="progress-container" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div id="main-progress" class="bg-sena-orange h-full transition-all duration-500 ease-out" style="width: 25%;"></div>
+            </div>
+            <nav class="flex justify-between mt-2 text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-semibold" aria-label="Progreso de la sesión">
+                <span>1. El Reto</span>
+                <span>2. Contenido</span>
+                <span>3. Aplicación</span>
+                <span>4. Simulación</span>
+            </nav>
+        </header>
+
+        <div class="flex-grow p-4 md:p-10">
+
+            <!-- MICRO 1: EL RETO Y EVALUACIÓN DIAGNÓSTICA -->
+            <section id="micro-1" class="step-section block space-y-6">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-bold mb-4 uppercase tracking-wider">Micro 1: El Desafío Laboral</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-4">La crisis de eficiencia en la gestión de documentos</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-6">
+                        <div>
+                            <p class="text-slate-600 leading-relaxed mb-4">
+                                Imagina que trabajas en el departamento de Talento Humano o Cartera de una gran empresa. Tienes la tarea de redactar, personalizar e imprimir <strong>150 cartas de notificación individuales</strong> con datos específicos de saldos, cargos y fechas para cada usuario. 
+                            </p>
+                            <p class="text-slate-600 leading-relaxed">
+                                Hacerlo de forma manual copiando y pegando registro por registro te tomaría horas y aumentaría drásticamente la probabilidad de cometer errores ortográficos o financieros críticos. 
+                            </p>
+                        </div>
+                        <div class="image-container p-4 shadow-inner bg-slate-100">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200 text-xs shadow-sm">
+                                <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-100 text-slate-400">
+                                    <span class="font-bold flex items-center gap-1 text-slate-600"><i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i> Vista del Documento Automatizado</span>
+                                    <span class="text-blue-600 font-semibold bg-blue-50 px-1.5 py-0.5 rounded text-[10px]">Modo Plantilla</span>
+                                </div>
+                                <p class="text-[11px] text-slate-600 leading-relaxed font-mono bg-slate-50 p-3 rounded border border-dashed">
+                                    Estimado(a) <span class="bg-blue-100 text-blue-800 px-1 rounded font-bold">«Nombre»</span> <span class="bg-blue-100 text-blue-800 px-1 rounded font-bold">«Apellido»</span>,<br><br>
+                                    Le notificamos que a la fecha presenta un saldo pendiente de <span class="bg-green-100 text-green-800 px-1 rounded font-bold">«Saldo»</span> asociado a su código de cliente <span class="bg-purple-100 text-purple-800 px-1 rounded font-bold">«Código»</span>. Por favor realizar el pago correspondiente.
+                                </p>
+                            </div>
+                            <div class="text-center pt-2 text-xs text-slate-500 font-medium">Visualización de variables dynamic in-app</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-xl shadow-sm mb-6" role="alert">
+                        <div class="flex gap-4 items-start">
+                            <div class="bg-sena-orange text-white p-2 rounded-lg">
+                                <i data-lucide="alert-circle" class="w-6 h-6" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-slate-900 font-bold text-lg mb-1">Instructor Juan Carlos Bermúdez S. <br><span class="text-sena-orange text-sm font-semibold">Desafío de Automatización</span></h3>
+                                <p class="text-slate-700 text-sm leading-relaxed">
+                                    "¡Estimado Aprendiz! El reto del día consiste en configurar el asistente de Word para fusionar una base de datos externa de forma masiva en menos de 5 minutos. Con esta técnica, tu productividad aumentará exponencialmente."
+                                </p>
+                                <div class="mt-4">
+                                    <a href="https://drive.google.com/file/d/1L46raTgVbivQGE1pOD69ZW1ezbETvM52/view?usp=drive_link" target="_blank" class="focus-ring inline-flex items-center gap-2 text-xs text-blue-600 font-bold hover:underline bg-white px-4 py-2 rounded-lg border shadow-sm">
+                                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Acceso infografía sobre el Proceso de Combinación de Documento
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EVALUACIÓN DIAGNÓSTICA (SONDEO CARD) -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i data-lucide="help-circle" class="text-sena-orange w-5 h-5"></i>
+                            <h3 class="font-bold text-slate-800 text-base">Sondeo de Saberes Previos</h3>
+                        </div>
+                        <fieldset>
+                            <!-- Etiqueta accesible según WCAG 2.5.3 / 1.3.1 -->
+                            <legend id="diagnostic-label" class="text-slate-700 text-sm mb-4 font-medium">
+                                En sus experiencias previas manejando correspondencia o listados en oficinas, ¿cuál considera que es el mayor riesgo de personalizar cartas de forma manual una por una?
+                            </legend>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3" role="radiogroup" aria-labelledby="diagnostic-label">
+                                <button onclick="submitDiagnostic('A', this)" class="diagnostic-opt text-left p-4 border border-slate-300 rounded-xl bg-white hover:border-slate-400 transition-all text-xs font-semibold text-slate-700 focus-ring">
+                                    A. El tiempo invertido y el agotamiento operativo.
+                                </button>
+                                <button onclick="submitDiagnostic('B', this)" class="diagnostic-opt text-left p-4 border border-slate-300 rounded-xl bg-white hover:border-slate-400 transition-all text-xs font-semibold text-slate-700 focus-ring">
+                                    B. Intercambiar datos confidenciales de los destinatarios por error.
+                                </button>
+                                <button onclick="submitDiagnostic('C', this)" class="diagnostic-opt text-left p-4 border border-slate-300 rounded-xl bg-white hover:border-slate-400 transition-all text-xs font-semibold text-slate-700 focus-ring">
+                                    C. Errar en montos financieros, fechas clave o nombres.
+                                </button>
+                            </div>
+                        </fieldset>
+                        <!-- Mensaje de estado neutral accesible -->
+                        <div id="diagnostic-feedback" class="mt-4 p-3 bg-slate-100 text-slate-700 rounded-xl text-xs font-medium hidden" aria-live="polite"></div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end pt-4">
+                    <button onclick="navigateToMicro(2)" class="focus-ring px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors flex items-center gap-2">
+                        Iniciar Contenido Técnico <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- MICRO 2: CONTENIDO Y EVALUACIÓN FORMATIVA -->
+            <section id="micro-2" class="step-section hidden space-y-6">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold mb-4 uppercase tracking-wider">Micro 2: Fundamentación Técnica</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Pilares Esenciales de la Fusión de Documentos</h2>
+                    
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl mb-6 text-sm text-slate-600 italic">
+                        <strong>Resultado de Aprendizaje:</strong> Operar las herramientas de automatización de correspondencia en el procesador de texto para responder ágilmente a los requerimientos corporativos.
+                    </div>
+
+                    <div class="mb-6 bg-slate-900 p-4 rounded-xl border border-slate-700 shadow-lg text-center">
+                        <p class="text-xs text-slate-400 mb-2 font-bold uppercase tracking-widest flex items-center justify-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Video Guía Integrado de Formación
+                        </p>
+                        <div class="mt-2">
+                            <a href="https://drive.google.com/file/d/1rnJkMpDrZg3tkbYmRmA9reFR1JubbmTi/view?usp=drive_link" target="_blank" class="focus-ring inline-flex items-center gap-1.5 text-xs text-blue-400 font-bold hover:underline">
+                                <i data-lucide="folder-open" class="w-3.5 h-3.5"></i> VIDEO COMBINACIÓN DE DOCUMENTOS
+                            </a>
+                        </div>
+                    </div>               
+
+                    <!-- PESTAÑAS SEGMENTADAS PARA EVITAR SOBRECARGA COGNITIVA -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm mb-8">
+                        <div class="flex border-b bg-slate-50" role="tablist" aria-label="Conceptos Técnicos">
+                            <button id="tab-btn-0" onclick="switchTab(0)" class="tab-btn flex-1 py-3 text-xs md:text-sm font-bold border-b-4 border-sena-orange bg-white text-sena-orange focus-ring" role="tab" aria-selected="true" aria-controls="panel-0">1. Doc. Maestro</button>
+                            <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn flex-1 py-3 text-xs md:text-sm font-bold border-b-4 border-transparent text-slate-500 hover:bg-slate-100 focus-ring" role="tab" aria-selected="false" aria-controls="panel-1" tabindex="-1">2. Origen Datos</button>
+                            <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn flex-1 py-3 text-xs md:text-sm font-bold border-b-4 border-transparent text-slate-500 hover:bg-slate-100 focus-ring" role="tab" aria-selected="false" aria-controls="panel-2" tabindex="-1">3. Campos Fusión</button>
+                        </div>
+                        
+                        <div id="panel-0" class="tab-panel p-5 bg-white block" role="tabpanel" aria-labelledby="tab-btn-0">
+                            <div class="flex flex-col md:flex-row gap-4 items-center">
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-slate-800 mb-2 text-base flex items-center gap-2">
+                                        <i data-lucide="file" class="text-orange-500"></i> El Documento Maestro
+                                    </h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        Es el esqueleto del documento. Contiene la información corporativa estática: textos legales, encabezados institucionales, firmas del remitente y logotipos. Es el molde invariable que recibirá los datos dinámicos.
+                                    </p>
+                                </div>
+                                <div class="w-full md:w-1/3 bg-slate-50 p-3 rounded-lg border text-center flex flex-col items-center justify-center">
+                                    <div class="w-10 h-10 rounded bg-blue-100 text-blue-600 flex items-center justify-center mb-1"><i data-lucide="layout" class="w-5 h-5"></i></div>
+                                    <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Estructura Fija Base</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="panel-1" class="tab-panel p-5 bg-white hidden" role="tabpanel" aria-labelledby="tab-btn-1">
+                            <div class="flex flex-col md:flex-row gap-4 items-center">
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-slate-800 mb-2 text-base flex items-center gap-2">
+                                        <i data-lucide="database" class="text-green-600"></i> El Origen de Datos
+                                    </h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        Es la matriz o base de datos estructurada. Por lo general, se trata de una hoja de cálculo de <strong>Microsoft Excel</strong> donde la fila superior contiene los títulos de las columnas (encabezados de variables) y las filas inferiores representan cada registro único.
+                                    </p>
+                                </div>
+                                <div class="w-full md:w-1/3 bg-slate-50 p-3 rounded-lg border text-center flex flex-col items-center justify-center">
+                                    <div class="w-10 h-10 rounded bg-green-100 text-green-600 flex items-center justify-center mb-1"><i data-lucide="sheet" class="w-5 h-5"></i></div>
+                                    <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Filas y Columnas de Excel</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="panel-2" class="tab-panel p-5 bg-white hidden" role="tabpanel" aria-labelledby="tab-btn-2">
+                            <div class="flex flex-col md:flex-row gap-4 items-center">
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-slate-800 mb-2 text-base flex items-center gap-2">
+                                        <span class="text-blue-600 font-extrabold">« »</span> Campos de Fusión Inteligentes
+                                    </h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        Son marcadores de posición especiales insertados dentro del texto estático. Tienen la sintaxis <code class="bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded font-mono text-xs">«Campo»</code>. Al procesar la combinación, Word los sustituye por el valor de la celda de datos correspondiente.
+                                    </p>
+                                </div>
+                                <div class="w-full md:w-1/3 bg-slate-50 p-3 rounded-lg border text-center">
+                                    <div class="h-12 flex items-center justify-center font-mono text-xs font-bold bg-blue-50 text-blue-600 rounded border border-blue-200">
+                                        «Ciudad_Entrega»
+                                    </div>
+                                    <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider block mt-1">Marcadores de Variables</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EVALUACIÓN FORMATIVA (CUESTIONARIO AUTOMATIZADO) -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+                        <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
+                            <i data-lucide="check-square" class="text-emerald-600 w-5 h-5"></i>
+                            <h3 class="font-bold text-slate-800 text-base">Cuestionario Formativo de Conceptos</h3>
+                        </div>
+
+                        <!-- Pregunta 1 -->
+                        <div class="space-y-3">
+                            <fieldset>
+                                <legend id="qf1-label" class="font-bold text-slate-700 text-sm">1. ¿Qué componente actúa como la "matriz o molde invariable" que sostiene los textos fijos corporativos?</legend>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2" role="radiogroup" aria-labelledby="qf1-label">
+                                    <button onclick="evaluateFormative(1, 'A', this)" class="qf-opt-1 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">A. El Origen de Datos</button>
+                                    <button onclick="evaluateFormative(1, 'B', this)" class="qf-opt-1 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">B. El Documento Maestro</button>
+                                </div>
+                            </fieldset>
+                            <div id="qf1-feedback" class="text-xs p-3 rounded-xl hidden flex items-center gap-2 font-medium" aria-live="polite"></div>
+                        </div>
+
+                        <!-- Pregunta 2 -->
+                        <div class="space-y-3">
+                            <fieldset>
+                                <legend id="qf2-label" class="font-bold text-slate-700 text-sm">2. Para que Word reconozca las variables de Excel, los títulos de las columnas deben ubicarse estrictamente en:</legend>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2" role="radiogroup" aria-labelledby="qf2-label">
+                                    <button onclick="evaluateFormative(2, 'A', this)" class="qf-opt-2 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">A. La primera fila superior de la hoja</button>
+                                    <button onclick="evaluateFormative(2, 'B', this)" class="qf-opt-2 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">B. Cualquier celda combinada del archivo</button>
+                                </div>
+                            </fieldset>
+                            <div id="qf2-feedback" class="text-xs p-3 rounded-xl hidden flex items-center gap-2 font-medium" aria-live="polite"></div>
+                        </div>
+
+                        <!-- PANTALLA DE RESUMEN / RETROALIMENTACIÓN DIFERIDA (WCAG 4.1.3) -->
+                        <div id="formative-summary" class="mt-6 p-5 border border-slate-300 bg-white rounded-xl hidden space-y-3" aria-live="polite">
+                            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                                <i data-lucide="bar-chart-2" class="text-sena-orange"></i> Estado del Avance Formativo
+                            </h4>
+                            <p id="formative-summary-text" class="text-xs text-slate-600 leading-relaxed"></p>
+                            <div id="formative-actions"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4">
+                    <button onclick="navigateToMicro(1)" class="focus-ring text-sm font-bold text-slate-500 hover:text-slate-800">Atrás</button>
+                    <button id="btn-goto-micro3" disabled onclick="navigateToMicro(3)" class="focus-ring opacity-50 cursor-not-allowed px-6 py-3 bg-slate-900 text-white rounded-xl font-bold flex items-center gap-2 transition-all">
+                        Ir a la Toma de Decisiones <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- MICRO 3: APLICACIÓN Y TOMA DE DECISIONES -->
+            <section id="micro-3" class="step-section hidden space-y-6">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-bold mb-4 uppercase tracking-wider">Micro 3: Casos Prácticos de Oficina</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Evaluación Basada en Situaciones Reales</h2>
+                    <p class="text-sm text-slate-600 mb-6">
+                        Resuelve los siguientes escenarios críticos del entorno corporativo aplicando análisis técnico. Cada acierto sumará puntos a tu cuenta global.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Caso 1 -->
+                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-3">
+                            <fieldset>
+                                <legend id="case1-label" class="font-bold text-slate-800 text-sm">
+                                    <span class="text-sena-orange">Escenario 1:</span> Al insertar el marcador <code class="bg-slate-200 px-1 rounded font-mono text-xs">«Saldo»</code>, notas que en las cartas se visualiza el número plano (ej: 150000) en lugar del formato monetario ($150.000). ¿Qué decisión técnica toma para solucionarlo eficazmente?
+                                </legend>
+                                <div class="grid grid-cols-1 gap-2 mt-3" role="radiogroup" aria-labelledby="case1-label">
+                                    <button onclick="evaluateCase(1, 'A', this)" class="case-opt-1 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">A. Modificar manualmente cada una de las 150 cartas generadas al final.</button>
+                                    <button onclick="evaluateCase(1, 'B', this)" class="case-opt-1 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">B. Editar el formato de celda en Excel y, si persiste, usar modificadores de campo (switches como \# $#,##0) mediante ALT + F9 en Word.</button>
+                                    <button onclick="evaluateCase(1, 'C', this)" class="case-opt-1 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">C. Volver a redactar la carta en una plantilla nueva desde cero.</button>
+                                </div>
+                            </fieldset>
+                            <div id="case1-feedback" class="text-xs p-3 rounded-xl hidden font-medium" aria-live="polite"></div>
+                        </div>
+
+                        <!-- Caso 2 -->
+                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-3">
+                            <fieldset>
+                                <legend id="case2-label" class="font-bold text-slate-800 text-sm">
+                                    <span class="text-sena-orange">Escenario 2:</span> El departamento directivo solicita que las cartas enviadas a clientes con saldos superiores a $1.000.000 incluyan un párrafo de advertencia legal que los demás no deben ver. ¿Cómo automatiza este requerimiento?
+                                </legend>
+                                <div class="grid grid-cols-1 gap-2 mt-3" role="radiogroup" aria-labelledby="case2-label">
+                                    <button onclick="evaluateCase(2, 'A', this)" class="case-opt-2 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">A. Segmentar la base de datos de Excel en dos archivos diferentes y ejecutar dos procesos de combinación separados.</button>
+                                    <button onclick="evaluateCase(2, 'B', this)" class="case-opt-2 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">B. Utilizar la regla lógica condicional "IF... THEN... ELSE" (Si... Entonces... Sino) desde el menú de Word para automatizar el párrafo.</button>
+                                    <button onclick="evaluateCase(2, 'C', this)" class="case-opt-2 text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring">C. Esperar a generar todas las cartas y buscar visualmente a los clientes para pegar el párrafo de forma manual.</button>
+                                </div>
+                            </fieldset>
+                            <div id="case2-feedback" class="text-xs p-3 rounded-xl hidden font-medium" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4">
+                    <button onclick="navigateToMicro(2)" class="focus-ring text-sm font-bold text-slate-500 hover:text-slate-800">Atrás</button>
+                    <button id="btn-goto-micro4" disabled onclick="navigateToMicro(4)" class="focus-ring opacity-50 cursor-not-allowed px-6 py-3 bg-slate-900 text-white rounded-xl font-bold flex items-center gap-2 transition-all">
+                        Ir al Laboratorio Operativo <i data-lucide="cpu" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- MICRO 4: SIMULACIÓN DE ENTORNO REAL -->
+            <section id="micro-4" class="step-section hidden space-y-6">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-slate-100 text-slate-800 rounded-full text-xs font-bold mb-4 uppercase tracking-wider">Micro 4: Simulación de Entorno Real</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Simulador Técnico Guiado paso a paso</h2>
+                    <p class="text-sm text-slate-600 mb-6">
+                        Interactúa con el flujo analítico replicando el orden de ejecución en Word. Haz clic sobre cada tarjeta <strong>respetando la secuencia técnica estricta</strong>:
+                    </p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-5 space-y-3" role="list" aria-label="Pasos de la simulación técnica">
+                            <div id="step-card-1" class="border rounded-xl p-4 bg-slate-50 hover:bg-white transition-all cursor-pointer border-l-4 border-slate-400" onclick="executePracticeStep(1)" role="listitem">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-slate-800 text-sm">1. Activar Cinta "Correspondencia"</span>
+                                    <i data-lucide="circle" id="step-icon-1" class="w-4 h-4 text-slate-400"></i>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1">Habilitar el menú especializado de automatización en la barra superior.</p>
+                            </div>
+
+                            <div id="step-card-2" class="border rounded-xl p-4 bg-slate-50 hover:bg-white transition-all cursor-pointer border-l-4 border-slate-400" onclick="executePracticeStep(2)" role="listitem">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-slate-800 text-sm">2. Vincular Origen (Lista Existente)</span>
+                                    <i data-lucide="circle" id="step-icon-2" class="w-4 h-4 text-slate-400"></i>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1">Conectar el archivo Excel con los registros de la base de datos externa.</p>
+                            </div>
+
+                            <div id="step-card-3" class="border rounded-xl p-4 bg-slate-50 hover:bg-white transition-all cursor-pointer border-l-4 border-slate-400" onclick="executePracticeStep(3)" role="listitem">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-slate-800 text-sm">3. Insertar Campos de Fusión</span>
+                                    <i data-lucide="circle" id="step-icon-3" class="w-4 h-4 text-slate-400"></i>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1">Desplegar las columnas fijas para incrustar los marcadores.</p>
+                            </div>
+
+                            <div id="step-card-4" class="border rounded-xl p-4 bg-slate-50 hover:bg-white transition-all cursor-pointer border-l-4 border-slate-400" onclick="executePracticeStep(4)" role="listitem">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-slate-800 text-sm">4. Finalizar y Combinar</span>
+                                    <i data-lucide="circle" id="step-icon-4" class="w-4 h-4 text-slate-400"></i>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1">Procesar el renderizado final para obtener el archivo unificado.</p>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-7 flex flex-col justify-between border rounded-xl bg-slate-900 p-4 shadow-md min-h-[340px] text-white">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                                    <span class="text-xs font-mono text-slate-400 ml-2">Microsoft Word - Módulo de Automatización</span>
+                                </div>
+                                <span class="word-badge text-[10px] font-bold px-2 py-0.5 rounded tracking-wide uppercase">Word v2026</span>
+                            </div>
+                            
+                            <div id="live-image-viewer" class="flex-grow flex flex-col items-center justify-center p-4 text-center">
+                                <i data-lucide="monitor" class="w-16 h-16 text-slate-600 mb-3 animate-pulse"></i>
+                                <p class="text-sm text-slate-400 font-medium">Haz clic en los pasos de la izquierda para ver las herramientas y capturas interactivas del software.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="practice-success-alert" class="mt-6 p-4 bg-green-50 text-green-800 rounded-xl font-bold border border-green-200 hidden flex items-center gap-2 text-sm">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i> ¡Felicidades! Has dominado la totalidad de los módulos teóricos y prácticos de la automatización documental.
+                    </div>
+                </div>
+
+                <div class="flex justify-start pt-4">
+                    <button onclick="navigateToMicro(3)" class="focus-ring text-sm font-bold text-slate-500 hover:text-slate-800">Atrás</button>
+                </div>
+            </section>
+        </div>
+
+        <footer class="bg-slate-50 border-t border-slate-100 p-4 text-center text-xs text-slate-400 font-medium">
+            Servicio Nacional de Aprendizaje SENA &copy; 2026. Innovación en Formación Tecnológica y Profesional.
+        </footer>
+    </main>
+
+    <!-- INTERFAZ MODAL DE LOGRO FINAL -->
+    <div id="badge-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border border-slate-100">
+            <div class="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-orange-400">
+                <i data-lucide="award" class="w-14 h-14 text-sena-orange" aria-hidden="true"></i>
+            </div>
+            <h2 id="modal-title" class="text-2xl font-extrabold text-slate-900 mb-2">¡Desafío Superado!</h2>
+            <p class="text-xs text-slate-600 mb-6 leading-relaxed">
+                El sistema de evaluación digital del SENA ratifica que respondiste correctamente todas las pruebas de control de procesos analíticos.
+            </p>
+            <div class="bg-orange-50 p-3 rounded-xl mb-6 border border-orange-200">
+                <span class="text-sena-orange font-bold text-xs tracking-widest uppercase block">Insignia Otorgada:</span>
+                <span class="text-slate-800 font-extrabold text-xs">Experto en Automatización Corporativa, deben practicar la combinación de documentos para mejorar el desempeño, Adelante!! Instructor Juan Carlos Bermúdez SENA</span>
+            </div>
+            <button onclick="resetTrainingSession()" class="focus-ring w-full py-3.5 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors text-sm">
+                Reiniciar Sesión de Estudio
+            </button>
+        </div>
+    </div>
+
+    <!-- CONTROLADORES LÓGICOS ASÍNCRONOS (JAVASCRIPT) -->
+    <script>
+        // Inicialización de Iconos Lucide
+        lucide.createIcons();
+
+        // Variables de Control de Estado Global
+        let globalScore = 0;
+        let practiceProgressCounter = 0;
+        
+        // Estado Micro 2
+        let formativeAnswered = { 1: false, 2: false };
+        let formativeErrors = [];
+        const formativeKey = { 1: 'B', 2: 'A' };
+
+        // Estado Micro 3
+        let casesAnswered = { 1: false, 2: false };
+        let casesCorrectCount = 0;
+        const casesKey = { 1: 'B', 2: 'B' };
+
+        // 1. NAVEGACIÓN Y PROGRESO DE LA SESIÓN
+        function navigateToMicro(stepNumber) {
+            document.querySelectorAll('.step-section').forEach(section => section.classList.add('hidden'));
+            const currentSection = document.getElementById(`micro-${stepNumber}`);
+            if (currentSection) currentSection.classList.remove('hidden');
+
+            const actualProgressPercent = (stepNumber / 4) * 100;
+            const mainProgress = document.getElementById('main-progress');
+            if (mainProgress) mainProgress.style.width = `${actualProgressPercent}%`;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 2. MICRO 1: CONTROL DE SONDEO DIAGNÓSTICO
+        function submitDiagnostic(option, btnElement) {
+            // Deshabilitar opciones del sondeo
+            document.querySelectorAll('.diagnostic-opt').forEach(btn => {
+                btn.setAttribute('disabled', 'true');
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            });
+            btnElement.classList.remove('opacity-50');
+            btnElement.classList.add('border-slate-800', 'bg-slate-50', 'font-bold');
+
+            // Feedback neutral, conectando con el siguiente bloque (Criterio WCAG 4.1.3 / No mueve el foco)
+            const feedbackContainer = document.getElementById('diagnostic-feedback');
+            feedbackContainer.innerHTML = `
+                <div class="flex items-start gap-2">
+                    <i data-lucide="check" class="w-4 h-4 text-slate-600 mt-0.5"></i>
+                    <span><strong>¡Muchas gracias por su participación!</strong> Su respuesta ha sido registrada con éxito. Identificar estos factores de riesgo es el punto de partida para valorar los sistemas de automatización. Avancemos al siguiente bloque para revisar los pilares técnicos.</span>
+                </div>
+            `;
+            feedbackContainer.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // 3. MICRO 2: CONTROL DE PESTAÑAS SEGMENTADAS
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+                if (idx === tabIndex) {
+                    btn.classList.remove('border-transparent', 'text-slate-500');
+                    btn.classList.add('border-sena-orange', 'bg-white', 'text-sena-orange');
+                    btn.setAttribute('aria-selected', 'true');
+                    btn.removeAttribute('tabindex');
+                } else {
+                    btn.classList.remove('border-sena-orange', 'bg-white', 'text-sena-orange');
+                    btn.classList.add('border-transparent', 'text-slate-500');
+                    btn.setAttribute('aria-selected', 'false');
+                    btn.setAttribute('tabindex', '-1');
+                }
+            });
+
+            document.querySelectorAll('.tab-panel').forEach((panel, idx) => {
+                if (idx === tabIndex) {
+                    panel.classList.remove('hidden');
+                    panel.classList.add('block');
+                } else {
+                    panel.classList.remove('block');
+                    panel.classList.add('hidden');
+                }
+            });
+        }
+
+        // 4. MICRO 2: EVALUACIÓN FORMATIVA CON RETROALIMENTACIÓN INMEDIATA Y DIFERIDA
+        function evaluateFormative(questionId, selectedOption, btnElement) {
+            if (formativeAnswered[questionId]) return;
+            formativeAnswered[questionId] = true;
+
+            const isCorrect = selectedOption === formativeKey[questionId];
+            const feedbackContainer = document.getElementById(`qf${questionId}-feedback`);
+
+            // Bloquear botones de la pregunta actual
+            document.querySelectorAll(`.qf-opt-${questionId}`).forEach(btn => btn.setAttribute('disabled', 'true'));
+
+            // Retroalimentación inmediata visual y textual (Mensaje de Estado sin mover foco)
+            feedbackContainer.classList.remove('hidden');
+            if (isCorrect) {
+                btnElement.className = "text-left p-3 border border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-xs font-bold focus-ring flex justify-between items-center w-full";
+                btnElement.innerHTML += `<i data-lucide='check-circle' class='w-4 h-4 text-emerald-600'></i>`;
+                
+                feedbackContainer.classList.add('bg-emerald-50', 'text-emerald-800', 'border', 'border-emerald-200');
+                feedbackContainer.innerHTML = `<strong>Respuesta enviada correctamente.</strong> ¡Acierto técnico! El concepto fue comprendido de manera clara.`;
+            } else {
+                btnElement.className = "text-left p-3 border border-rose-400 bg-rose-50 text-rose-900 rounded-xl text-xs font-bold line-through focus-ring flex justify-between items-center w-full";
+                btnElement.innerHTML += `<i data-lucide='x-circle' class='w-4 h-4 text-rose-600'></i>`;
+                
+                feedbackContainer.classList.add('bg-rose-50', 'text-rose-800', 'border', 'border-rose-200');
+                feedbackContainer.innerHTML = `<strong>Respuesta enviada correctamente.</strong> Respuesta incorrecta.`;
+                
+                // Guardar para el resumen diferido
+                formativeErrors.push(questionId);
+            }
+            lucide.createIcons();
+
+            // Validar si ya se completó todo el bloque formativo
+            const totalAnswered = Object.values(formativeAnswered).filter(Boolean).length;
+            if (totalAnswered === 2) {
+                displayDeferredSummary();
+            }
+        }
+
+        function displayDeferredSummary() {
+            const summaryBox = document.getElementById('formative-summary');
+            const summaryText = document.getElementById('formative-summary-text');
+            const actionBox = document.getElementById('formative-actions');
+            const nextBtn = document.getElementById('btn-goto-micro3');
+
+            summaryBox.classList.remove('hidden');
+            
+            if (formativeErrors.length === 0) {
+                summaryText.innerHTML = `<strong>¡Excelente desempeño formativo!</strong> Has respondido de manera perfecta todos los conceptos clave de este núcleo teórico. Estás completamente preparado para asumir la toma de decisiones en el Micro 3.`;
+                actionBox.innerHTML = "";
+                
+                // Habilitar paso al Micro 3
+                nextBtn.removeAttribute('disabled');
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                summaryText.innerHTML = `<strong>Resumen de los puntos clave a reforzar:</strong> Hemos detectado debilidades conceptuales en tu avance. Te sugerimos revisar las siguientes pestañas técnicas de arriba antes de continuar:`;
+                
+                let suggestionsHtml = `<ul class='list-disc pl-5 mt-2 space-y-1 font-semibold text-slate-700 text-xs'>`;
+                if (formativeErrors.includes(1)) suggestionsHtml += `<li>Concepto del <strong>Documento Maestro</strong> (Pestaña 1).</li>`;
+                if (formativeErrors.includes(2)) suggestionsHtml += `<li>Reglas de estructura en el <strong>Origen de Datos</strong> (Pestaña 2).</li>`;
+                suggestionsHtml += `</ul>`;
+                
+                summaryText.innerHTML += suggestionsHtml;
+
+                // Opción dirigida de repaso pedagógico
+                actionBox.innerHTML = `
+                    <button onclick='reviewFormativeMaterials()' class='focus-ring mt-2 inline-flex items-center gap-1.5 bg-slate-800 text-white font-bold py-2 px-4 rounded-lg text-xs hover:bg-slate-700 transition-colors'>
+                        <i data-lucide='refresh-cw' class='w-3.5 h-3.5'></i> Volver a repasar material técnico
+                    </button>
+                `;
+                
+                // Forzar habilitación para no bloquear la experiencia, sugiriendo el repaso previo
+                nextBtn.removeAttribute('disabled');
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            lucide.createIcons();
+        }
+
+        function reviewFormativeMaterials() {
+            // Restablecer cuestionario formativo para permitir segunda oportunidad pedagógica
+            formativeAnswered = { 1: false, 2: false };
+            formativeErrors = [];
+            
+            document.getElementById('formative-summary').classList.add('hidden');
+            document.getElementById('btn-goto-micro3').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('btn-goto-micro3').setAttribute('disabled', 'true');
+
+            for (let q = 1; q <= 2; q++) {
+                const fbox = document.getElementById(`qf${q}-feedback`);
+                fbox.className = "text-xs p-3 rounded-xl hidden flex items-center gap-2 font-medium";
+                fbox.innerHTML = "";
+                
+                document.querySelectorAll(`.qf-opt-${q}`).forEach(btn => {
+                    btn.removeAttribute('disabled');
+                    btn.className = "qf-opt-" + q + " text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring";
+                    if (q === 1) btn.innerText = btn.innerText.includes("Origen") ? "A. El Origen de Datos" : "B. El Documento Maestro";
+                    if (q === 2) btn.innerText = btn.innerText.includes("primera") ? "A. La primera fila superior de la hoja" : "B. Cualquier celda combinada del archivo";
+                });
+            }
+            switchTab(0);
+            window.scrollTo({ top: document.getElementById('micro-2').offsetTop, behavior: 'smooth' });
+        }
+
+        // 5. MICRO 3: APLICACIÓN, TOMA DE DECISIONES Y GAMIFICACIÓN TÉCNICA
+        function evaluateCase(caseId, selectedOption, btnElement) {
+            if (casesAnswered[caseId]) return;
+            casesAnswered[caseId] = true;
+
+            const isCorrect = selectedOption === casesKey[caseId];
+            const feedbackContainer = document.getElementById(`case${caseId}-feedback`);
+
+            document.querySelectorAll(`.case-opt-${caseId}`).forEach(btn => btn.setAttribute('disabled', 'true'));
+
+            feedbackContainer.classList.remove('hidden');
+            
+            if (isCorrect) {
+                btnElement.className = "text-left p-3 border border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-xs font-bold focus-ring flex justify-between items-center w-full";
+                btnElement.innerHTML += `<i data-lucide='check' class='w-4 h-4 text-emerald-600'></i>`;
+                
+                feedbackContainer.classList.add('bg-emerald-50', 'text-emerald-800', 'border', 'border-emerald-200');
+                feedbackContainer.innerHTML = `<strong>¡Decisión Acertada!</strong> (+50 pts) ` + 
+                    (caseId === 1 ? 'Los modificadores de campo evitan reprocesos en la base de datos de origen.' : 'Las reglas lógicas "IF... THEN" automatizan las variaciones contractuales de manera transparente.');
+                
+                casesCorrectCount++;
+                updateScore(50);
+            } else {
+                btnElement.className = "text-left p-3 border border-rose-400 bg-rose-50 text-rose-900 rounded-xl text-xs font-bold line-through focus-ring flex justify-between items-center w-full";
+                btnElement.innerHTML += `<i data-lucide='alert-triangle' class='w-4 h-4 text-rose-600'></i>`;
+                
+                feedbackContainer.classList.add('bg-rose-50', 'text-rose-800', 'border', 'border-rose-200');
+                feedbackContainer.innerHTML = `<strong>Decisión Ineficiente.</strong> ` + 
+                    (caseId === 1 ? 'Modificar las cartas de manera manual rompe el propósito de la automatización e inyecta errores.' : 'Dividir los archivos rompe la integridad relacional de la base de datos y duplica los tiempos operativos.');
+            }
+            lucide.createIcons();
+
+            // Validar avance para abrir micro 4
+            const totalCasesAnswered = Object.values(casesAnswered).filter(Boolean).length;
+            if (totalCasesAnswered === 2) {
+                const nextBtn = document.getElementById('btn-goto-micro4');
+                nextBtn.removeAttribute('disabled');
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // 6. MICRO 4: SIMULADOR DE ENTORNO REAL OPERATIVO SECUENCIAL
+        const stepMockups = {
+            1: `<div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-full animate-fade-in text-left">
+                    <p class="text-sena-orange font-mono text-xs mb-2">[Acción: Cinta Correspondencia]</p>
+                    <p class="text-sm font-semibold text-white">Menú Correspondencia Activo</p>
+                    <p class="text-xs text-slate-300 mt-1">Se habilitan las herramientas estructurales de combinación masiva.</p>
+                </div>`,
+            2: `<div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-full animate-fade-in text-left">
+                    <p class="text-emerald-400 font-mono text-xs mb-2">[Acción: Vincular Excel]</p>
+                    <p class="text-sm font-semibold text-white">Base de Datos Conectada exitosamente</p>
+                    <p class="text-xs text-slate-300 mt-1">Word enlazó la estructura de variables dinámicas de la fila superior.</p>
+                </div>`,
+            3: `<div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-full animate-fade-in text-left">
+                    <p class="text-sky-400 font-mono text-xs mb-2">[Acción: Insertar Marcadores]</p>
+                    <p class="text-sm font-semibold text-white">Campos Dinámicos Incrustados</p>
+                    <p class="text-xs text-slate-300 mt-1">Marcadores posicionados de forma correcta en el texto estático.</p>
+                </div>`,
+            4: `<div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-full animate-fade-in text-left">
+                    <p class="text-purple-400 font-mono text-xs mb-2">[Acción: Fusión Final]</p>
+                    <p class="text-sm font-semibold text-white">Generando 150 Cartas Automatizadas</p>
+                    <p class="text-xs text-slate-300 mt-1">Proceso de renderizado masivo completado en un único archivo consolidado.</p>
+                </div>`
+        };
+
+        function executePracticeStep(step) {
+            if (step !== practiceProgressCounter + 1 && step > practiceProgressCounter) {
+                const viewer = document.getElementById('live-image-viewer');
+                viewer.innerHTML = `
+                    <i data-lucide="alert-triangle" class="w-12 h-12 text-amber-500 mb-2"></i>
+                    <p class="text-sm text-amber-400 font-bold">¡Secuencia Incorrecta!</p>
+                    <p class="text-xs text-slate-400 max-w-xs mx-auto">Siga el orden lógico establecido para la combinación de correspondencia (Paso ${practiceProgressCounter + 1}).</p>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            const viewer = document.getElementById('live-image-viewer');
+            viewer.innerHTML = stepMockups[step];
+            lucide.createIcons();
+
+            if (step === practiceProgressCounter + 1) {
+                practiceProgressCounter = step;
+                
+                const card = document.getElementById(`step-card-${step}`);
+                const icon = document.getElementById(`step-icon-${step}`);
+                
+                if (card && icon) {
+                    card.classList.remove('bg-slate-50', 'border-slate-400');
+                    card.classList.add('bg-emerald-50/40', 'border-emerald-500');
+                    icon.setAttribute('data-lucide', 'check-circle');
+                    icon.classList.remove('text-slate-400');
+                    icon.classList.add('text-emerald-600');
+                    lucide.createIcons();
+                }
+                updateScore(25);
+            }
+
+            // Si culminó de manera perfecta la simulación y las dos fases evaluativas previas
+            if (practiceProgressCounter === 4 && casesCorrectCount === 2) {
+                document.getElementById('practice-success-alert').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('badge-modal').classList.remove('hidden');
+                }, 1000);
+            }
+        }
+
+        // 7. UTILIDADES GLOBALES
+        function updateScore(points) {
+            globalScore += points;
+            document.getElementById('score-display').innerText = `Puntos: ${globalScore}`;
+        }
+
+        function resetTrainingSession() {
+            document.getElementById('badge-modal').classList.add('hidden');
+            globalScore = 0;
+            practiceProgressCounter = 0;
+            formativeAnswered = { 1: false, 2: false };
+            formativeErrors = [];
+            casesAnswered = { 1: false, 2: false };
+            casesCorrectCount = 0;
+            
+            document.getElementById('score-display').innerText = `Puntos: 0`;
+            document.getElementById('practice-success-alert').classList.add('hidden');
+            
+            // Restablecer Micro 1
+            document.getElementById('diagnostic-feedback').classList.add('hidden');
+            document.querySelectorAll('.diagnostic-opt').forEach(btn => {
+                btn.removeAttribute('disabled');
+                btn.className = "diagnostic-opt text-left p-4 border border-slate-300 rounded-xl bg-white hover:border-slate-400 transition-all text-xs font-semibold text-slate-700 focus-ring";
+            });
+
+            // Restablecer Micro 2
+            document.getElementById('formative-summary').classList.add('hidden');
+            document.getElementById('btn-goto-micro3').setAttribute('disabled', 'true');
+            document.getElementById('btn-goto-micro3').classList.add('opacity-50', 'cursor-not-allowed');
+            for (let q = 1; q <= 2; q++) {
+                document.getElementById(`qf${q}-feedback`).classList.add('hidden');
+                document.querySelectorAll(`.qf-opt-${q}`).forEach(btn => {
+                    btn.removeAttribute('disabled');
+                    btn.className = `qf-opt-${q} text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring`;
+                });
+            }
+
+            // Restablecer Micro 3
+            document.getElementById('btn-goto-micro4').setAttribute('disabled', 'true');
+            document.getElementById('btn-goto-micro4').classList.add('opacity-50', 'cursor-not-allowed');
+            for (let c = 1; c <= 2; c++) {
+                document.getElementById(`case${c}-feedback`).classList.add('hidden');
+                document.querySelectorAll(`.case-opt-${c}`).forEach(btn => {
+                    btn.removeAttribute('disabled');
+                    btn.className = `case-opt-${c} text-left p-3 border border-slate-300 bg-white rounded-xl text-xs font-medium focus-ring`;
+                });
+            }
+
+            // Restablecer Micro 4
+            document.getElementById('live-image-viewer').innerHTML = `
+                <i data-lucide="monitor" class="w-16 h-16 text-slate-600 mb-3 animate-pulse"></i>
+                <p class="text-sm text-slate-400 font-medium">Haz clic en los pasos de la izquierda para ver las herramientas y capturas interactivas del software.</p>
+            `;
+            for (let i = 1; i <= 4; i++) {
+                const card = document.getElementById(`step-card-${i}`);
+                const icon = document.getElementById(`step-icon-${i}`);
+                if (card && icon) {
+                    card.className = "border rounded-xl p-4 bg-slate-50 hover:bg-white transition-all cursor-pointer border-l-4 border-slate-400";
+                    icon.setAttribute('data-lucide', 'circle');
+                    icon.className = "w-4 h-4 text-slate-400";
+                }
+            }
+
+            switchTab(0);
+            lucide.createIcons();
+            navigateToMicro(1);
+        }
+    </script>
+</body>
+</html>
